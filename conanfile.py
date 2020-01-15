@@ -23,10 +23,8 @@ class OpenColorIOConan(ConanFile):
     generators = "cmake", "cmake_find_package"
 
     requires = [
-        "expat/2.2.9",
         "yaml-cpp/0.6.3",
-        "openexr/2.4.0",
-        "lcms/2.9"
+        "openexr/2.4.0"
     ]
 
     exports = ["ocio-*.patch"]
