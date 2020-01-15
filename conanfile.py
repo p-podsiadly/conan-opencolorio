@@ -7,6 +7,9 @@ class OpenColorIOConan(ConanFile):
     license = "BSD-3-Clause"
     description = "A color management framework for visual effects and animation."
     topics = ("graphics", "vfx", "color")
+    homepage = "https://opencolorio.org/"
+    url = "https://github.com/p-podsiadly/conan-opencolorio"
+
     settings = "os", "compiler", "build_type", "arch"
     
     options = {
@@ -67,11 +70,26 @@ class OpenColorIOConan(ConanFile):
     def build(self):
         cmake = self._configure_cmake()
         cmake.build()
-        cmake.install()
 
     def package(self):
-        self.copy("*.h", src="package/include", dst="include")
-        self.copy("*", src="package/lib/static", dst="lib", keep_path=False)    
+        
+        self.copy(
+            pattern="*.h",
+            src=os.path.join(self.source_folder, self._source_subfolder, "export/OpenColorIO"),
+            dst="include/OpenColorIO")
+
+        self.copy(
+            pattern="*.h",
+            src="export",
+            dst="include/OpenColorIO")
+
+        self.copy(pattern="*", src="lib", dst="lib")
+        self.copy(pattern="*", src="bin", dst="bin")
+
+        self.copy(
+            pattern="LICENSE",
+            src=os.path.join(self.source_folder, self._source_subfolder),
+            dst="licenses")
 
     def package_info(self):
         self.cpp_info.libs = ["OpenColorIO"]

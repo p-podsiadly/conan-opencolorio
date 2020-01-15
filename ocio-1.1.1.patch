@@ -1,5 +1,5 @@
 diff --git a/OpenColorIO-1.1.1/CMakeLists.txt b/source_subfolder/CMakeLists.txt
-index e4f3119..2653e5d 100644
+index e4f3119..2faaeff 100644
 --- a/OpenColorIO-1.1.1/CMakeLists.txt
 +++ b/source_subfolder/CMakeLists.txt
 @@ -11,2 +11,6 @@ endif()
@@ -16,7 +16,7 @@ index e4f3119..2653e5d 100644
 +            set_target_properties(TINYXML_LIB PROPERTIES COMPILE_FLAGS "-DTIXML_USE_STL -fPIC -fvisibility-inlines-hidden -fvisibility=hidden")
 +        endif ()
          add_definitions(-DTIXML_USE_STL) ## needed to build correctly, and also need to be propagated in child projects (client projects)
-@@ -250,120 +256,8 @@ endif(USE_EXTERNAL_TINYXML)
+@@ -250,120 +256,6 @@ endif(USE_EXTERNAL_TINYXML)
  
 -if(USE_EXTERNAL_YAML)
 -    # Set minimum yaml version for non-patched sources.
@@ -137,10 +137,8 @@ index e4f3119..2653e5d 100644
 -if(YAML_CPP_VERSION VERSION_LESS "0.5.0")
 -    set(YAML_CPP_COMPILE_FLAGS "-DOLDYAML")
 -endif()
-+set(YAML_CPP_LIBRARIES ${yaml-cpp_LIBRARIES})
-+set(YAML_CPP_INCLUDE_DIRS ${yaml-cpp_INCLUDE_DIRS})
++list(APPEND EXTERNAL_LIBRARIES yaml-cpp::yaml-cpp)
 +set(YAML_CPP_VERSION ${yaml-cpp_VERSION})
-+add_definitions(${yaml-cpp_DEFINITIONS})
  
 diff --git a/OpenColorIO-1.1.1/share/cmake/OCIOMacros.cmake b/source_subfolder/share/cmake/OCIOMacros.cmake
 index b9fb239..e7cfad6 100644
