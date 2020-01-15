@@ -153,3 +153,12 @@ index b9fb239..e7cfad6 100644
 +ENDMACRO()
 +MACRO(_DISABLED_OCIOFindPython)
      # Set the default python runtime
+diff --git a/OpenColorIO-1.1.1/src/core/Config.cpp b/source_subfolder/src/core/Config.cpp
+index f5cb379..5ea178e 100644
+--- a/OpenColorIO-1.1.1/src/core/Config.cpp
++++ b/source_subfolder/src/core/Config.cpp
+@@ -332,3 +332,3 @@ OCIO_NAMESPACE_ENTER
+                 cacheids_ = rhs.cacheids_;
+-                cacheidnocontext_ = cacheidnocontext_;
++                cacheidnocontext_ = rhs.cacheidnocontext_;
+             }
