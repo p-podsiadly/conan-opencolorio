@@ -9,7 +9,7 @@ index e4f3119..707e26d 100644
 +conan_basic_setup()
 +
 +set(CMAKE_CXX_STANDARD 11)
-+set(CMAKE_CXX_STANDARD ON)
++set(CMAKE_CXX_STANDARD_REQUIRED ON)
 +
  ###############################################################################
 @@ -206,2 +213,3 @@ else(USE_EXTERNAL_TINYXML)
