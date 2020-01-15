@@ -92,6 +92,10 @@ class OpenColorIOConan(ConanFile):
             dst="licenses")
 
     def package_info(self):
+
+        self.cpp_info.names["cmake_find_package"] = "OpenColorIO"
+        self.cpp_info.names["cmake_find_package_multi"] = "OpenColorIO"
+
         self.cpp_info.libs = ["OpenColorIO"]
 
         if not self.options.shared:
