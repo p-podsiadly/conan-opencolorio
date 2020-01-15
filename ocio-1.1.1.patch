@@ -1,26 +1,29 @@
 diff --git a/OpenColorIO-1.1.1/CMakeLists.txt b/source_subfolder/CMakeLists.txt
-index e4f3119..5f70b8e 100644
+index e4f3119..707e26d 100644
 --- a/OpenColorIO-1.1.1/CMakeLists.txt
 +++ b/source_subfolder/CMakeLists.txt
-@@ -11,2 +11,6 @@ endif()
+@@ -11,2 +11,9 @@ endif()
  
 +include("${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake")
 +set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_BINARY_DIR}" ${CMAKE_MODULE_PATH})
 +conan_basic_setup()
 +
++set(CMAKE_CXX_STANDARD 11)
++set(CMAKE_CXX_STANDARD ON)
++
  ###############################################################################
-@@ -206,2 +210,3 @@ else(USE_EXTERNAL_TINYXML)
+@@ -206,2 +213,3 @@ else(USE_EXTERNAL_TINYXML)
          set(tinyxml_headers ${TINYXML_SOURCE_DIR}/tinyxml/tinystr.h         ${TINYXML_SOURCE_DIR}/tinyxml/tinyxml.h )
 +        file(MAKE_DIRECTORY ${TINYXML_SOURCE_DIR})
          add_custom_command(                                 ## will be done at build time
-@@ -220,3 +225,5 @@ else(USE_EXTERNAL_TINYXML)
+@@ -220,3 +228,5 @@ else(USE_EXTERNAL_TINYXML)
          ## => TODO: so maybe provide a simple cmake way to build 3rdParty as shared and auto install with this project ?
 -        set_target_properties(TINYXML_LIB PROPERTIES COMPILE_FLAGS "-DTIXML_USE_STL -fPIC -fvisibility-inlines-hidden -fvisibility=hidden")
 +        if (NOT MSVC)
 +            set_target_properties(TINYXML_LIB PROPERTIES COMPILE_FLAGS "-DTIXML_USE_STL -fPIC -fvisibility-inlines-hidden -fvisibility=hidden")
 +        endif ()
          add_definitions(-DTIXML_USE_STL) ## needed to build correctly, and also need to be propagated in child projects (client projects)
-@@ -250,120 +257,6 @@ endif(USE_EXTERNAL_TINYXML)
+@@ -250,120 +260,6 @@ endif(USE_EXTERNAL_TINYXML)
  
 -if(USE_EXTERNAL_YAML)
 -    # Set minimum yaml version for non-patched sources.
@@ -38,7 +41,8 @@ index e4f3119..5f70b8e 100644
 -    if(YAML_CPP_VERSION VERSION_LESS ${YAML_VERSION_MIN})
 -        message(FATAL_ERROR "ERROR: yaml-cpp ${YAML_VERSION_MIN} or greater is required.")
 -    endif()
--
++find_package(yaml-cpp REQUIRED)
+ 
 -    find_package_handle_standard_args(yaml-cpp
 -                                      REQUIRED_VARS YAML_CPP_LIBRARIES YAML_CPP_INCLUDE_DIRS )
 -    set(YAML_CPP_FOUND ${YAML-CPP_FOUND})
@@ -136,8 +140,7 @@ index e4f3119..5f70b8e 100644
 -    endif()
 -    set_target_properties(YAML_CPP_LIB PROPERTIES FOLDER External)
 -endif(USE_EXTERNAL_YAML)
-+find_package(yaml-cpp REQUIRED)
- 
+-
 -if(YAML_CPP_VERSION VERSION_LESS "0.5.0")
 -    set(YAML_CPP_COMPILE_FLAGS "-DOLDYAML")
 -endif()
